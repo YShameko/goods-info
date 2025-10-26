@@ -20,11 +20,11 @@
     </div>
 
     <main class="bg-white p-6 md:p-10 rounded-xl shadow-2xl w-full max-w-4xl mx-auto">
-        <h1 class="text-3xl font-bold text-gray-800 mb-6 border-b pb-2">Інформація про Товар</h1>
+        <h1 class="text-3xl font-bold text-gray-800 mb-6 border-b pb-2">Інформація про товар</h1>
 
         <!-- Блок для відображення штрих-коду -->
         <div class="mb-6">
-            <h2 class="text-xl font-semibold text-gray-700">Штрих-код товару:</h2>
+            <h2 class="text-xl font-semibold text-gray-700">Штрих-код:</h2>
             <p id="displayBarcode" class="text-2xl font-mono text-indigo-600 bg-indigo-50 p-2 rounded inline-block"></p>
         </div>
         
@@ -44,7 +44,6 @@
             
             <!-- 4г) Карусель з фото товару -->
             <div class="mb-8">
-                <h3 class="text-2xl font-bold text-gray-800 mb-4">Фотографії</h3>
                 <div class="carousel-container shadow-lg">
                     <div id="carouselTrack" class="carousel-track">
                         <!-- Фото будуть вставлені тут через JS -->
@@ -56,7 +55,6 @@
 
             <!-- 4б) Повна назва товару -->
             <div class="mb-6">
-                <h3 class="text-2xl font-bold text-gray-800 mb-2">Назва товару:</h3>
                 <p id="productName" class="text-3xl font-extrabold text-gray-900"></p>
             </div>
 
@@ -76,7 +74,7 @@
                     <h4 class="text-xl font-semibold mb-3 text-green-700">Ціна:</h4>
                     <div id="priceSection">
                         <p class="mb-2">
-                            <span class="text-sm line-through text-gray-500">Початкова ціна:</span> 
+                            <span class="text-sm text-gray-500">Початкова ціна:</span> 
                             <span id="initialPrice" class="ml-2 text-xl text-gray-500 line-through"></span>
                         </p>
                         <p>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Інформація про Товар</title>
+    <!-- Завантаження Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./info_page.css">
+</head>
+<body class="bg-gray-100 min-h-screen p-4 md:p-8 font-sans">
+
+    <!-- КНОПКА "НАЗАД" ВГОРІ -->
+    <div class="mb-6">
+        <button id="backButtonTop" onclick="window.history.back()"
+                class="flex items-center text-indigo-600 hover:text-indigo-800 font-medium transition duration-200">
+            <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            Назад до сканера
+        </button>
+    </div>
+
+    <main class="bg-white p-6 md:p-10 rounded-xl shadow-2xl w-full max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6 border-b pb-2">Інформація про Товар</h1>
+
+        <!-- Блок для відображення штрих-коду -->
+        <div class="mb-6">
+            <h2 class="text-xl font-semibold text-gray-700">Штрих-код товару:</h2>
+            <p id="displayBarcode" class="text-2xl font-mono text-indigo-600 bg-indigo-50 p-2 rounded inline-block"></p>
+        </div>
+        
+        <!-- Блок для повідомлень про стан (завантаження, помилка, не знайдено) -->
+        <div id="statusSection" class="p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 rounded-lg hidden mb-6">
+            Завантаження даних...
+        </div>
+
+        <!-- Секція "Нічого не знайдено" -->
+        <div id="notFoundSection" class="p-6 bg-red-100 border-l-4 border-red-500 text-red-700 rounded-lg hidden mb-6">
+            <h3 class="text-xl font-bold">На жаль, нічого не знайдено</h3>
+            <p class="mt-2">Товар із цим штрих-кодом відсутній у нашій базі даних.</p>
+        </div>
+
+        <!-- Секція з даними товару (основний контент) -->
+        <div id="productDataSection" class="hidden">
+            
+            <!-- 4г) Карусель з фото товару -->
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">Фотографії</h3>
+                <div class="carousel-container shadow-lg">
+                    <div id="carouselTrack" class="carousel-track">
+                        <!-- Фото будуть вставлені тут через JS -->
+                    </div>
+                    <button id="prevBtn" class="nav-btn hidden">&lt;</button>
+                    <button id="nextBtn" class="nav-btn hidden">&gt;</button>
+                </div>
+            </div>
+
+            <!-- 4б) Повна назва товару -->
+            <div class="mb-6">
+                <h3 class="text-2xl font-bold text-gray-800 mb-2">Назва товару:</h3>
+                <p id="productName" class="text-3xl font-extrabold text-gray-900"></p>
+            </div>
+
+            <!-- 4а, в) Артикул, Колір, Розмір, Ціна -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Інформація про товар -->
+                <div class="p-5 border rounded-lg bg-gray-50">
+                    <h4 class="text-xl font-semibold mb-3 text-gray-700">Характеристики:</h4>
+                    <p class="mb-2"><span class="font-medium">Артикул:</span> <span id="productSku" class="ml-2 text-gray-600"></span></p>
+                    <p class="mb-2"><span class="font-medium">Колір:</span> <span id="productColor" class="ml-2 text-gray-600"></span></p>
+                    <p class="mb-2"><span class="font-medium">Розмір:</span> <span id="productSize" class="ml-2 text-gray-600"></span></p>
+                </div>
+
+                <!-- Ціни -->
+                <div class="p-5 border rounded-lg bg-green-50">
+                    <h4 class="text-xl font-semibold mb-3 text-green-700">Ціна:</h4>
+                    <div id="priceSection">
+                        <p class="mb-2">
+                            <span class="text-sm line-through text-gray-500">Початкова ціна:</span> 
+                            <span id="initialPrice" class="ml-2 text-xl text-gray-500 line-through"></span>
+                        </p>
+                        <p>
+                            <span class="text-lg font-bold text-green-600">Діюча ціна:</span> 
+                            <span id="currentPrice" class="ml-2 text-3xl font-extrabold text-green-800"></span>
+                            <span class="text-lg font-bold text-green-600">грн</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- КНОПКА "НАЗАД" ВНИЗУ -->
+    <div class="mt-6 w-full max-w-4xl mx-auto">
+        <button id="backButtonBottom" onclick="window.history.back()"
+                class="flex items-center justify-center w-full py-3 bg-gray-300 text-gray-800 font-semibold rounded-lg hover:bg-gray-400 transition duration-300">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            Повернутися
+        </button>
+    </div>
+
+    <script src="./info_page.js">    </script>
+</body>
+</html>

@@ -5,20 +5,19 @@
         const resultCode = document.getElementById('resultCode');
         const statusMessage = document.getElementById('statusMessage');
         const scanLine = document.getElementById('scanLine');
+        const manualEnter = document.getElementById('manual-enter-form');
+        const searchBarcode = document.getElementById("search");
 
         let codeReader = null;
         let stream = null;
 
-        /**
-         * Ініціалізує та запускає сканер.
-         */
+        /* Ініціалізує та запускає сканер. */
         async function startScanning() {
             try {
                 // Скидаємо попередні результати
                 resultDiv.classList.add('hidden');
                 resultCode.textContent = '';
                 
-                // 1. Запит доступу до камери
                 statusMessage.textContent = 'Очікування дозволу на використання камери...';
                 
                 // Використовуємо 'environment' для задньої камери
@@ -28,30 +27,27 @@
                 // 2. Встановлення та запуск декодера
                 codeReader = new ZXing.BrowserMultiFormatReader();
                 
-                // --- ЗМІНЕНО: Спрощення логіки запуску ---
-                // Ми більше не чекаємо onloadedmetadata. 
-                // Ми покладаємося на decodeFromStream, який сам відтворить відеопотік.
-                
                 statusMessage.textContent = 'Сканування... Наведіть камеру на штрих-код.';
                 startButton.style.display = 'none';
                 stopButton.style.display = 'block';
                 scanLine.style.display = 'block';
 
                 // 3. Запуск постійного декодування відеопотоку
-                // decodeFromStream є більш надійним методом, коли вже є об'єкт потоку.
                 codeReader.decodeFromStream(stream, video, (result, err) => {
                     if (result) {
                         // Знайдено штрих-код!
                         resultCode.textContent = result.getText();
                         resultDiv.classList.remove('hidden');
-                        
-                        // Зупиняємо, щоб уникнути повторного сканування
-                        stopScanning(); 
-                        statusMessage.textContent = 'Знайдено! Натисніть "Запустити", щоб сканувати знову.';
+                        const recognizedCode = result.getText();
+    
+                        // 1. Формування нової URL з параметром:
+                        const newUrl = `info_page.html?barcode=${encodeURIComponent(recognizedCode)}`;
+                        // 2. Перехід на іншу сторінку:
+                        stopScanning(); // Важливо зупинити камеру перед переходом
+                        window.location.href = newUrl;
                     }
                     // Якщо є помилка, але результат не знайдено, сканування продовжується
                 });
-                // --- КІНЕЦЬ ЗМІН ---
 
             } catch (err) {
                 // Обробка помилок (наприклад, якщо користувач відмовив у доступі)
@@ -63,9 +59,7 @@
             }
         }
 
-        /**
-         * Зупиняє сканування та звільняє ресурси камери.
-         */
+        /* Зупиняє сканування та звільняє ресурси камери. */
         function stopScanning() {
             if (codeReader) {
                 codeReader.reset(); // Зупиняє декодування
@@ -81,12 +75,18 @@
             startButton.style.display = 'block';
             stopButton.style.display = 'none';
             scanLine.style.display = 'none';
-            // Не змінюємо statusMessage, щоб зберегти повідомлення про результат/помилку
+            statusMessage.textContent = 'Натисніть "Запустити сканування", щоб увімкнути камеру.';
         }
 
         // Обробники подій для кнопок
         startButton.addEventListener('click', startScanning);
         stopButton.addEventListener('click', stopScanning);
-
+        manualEnter.addEventListener("submit", () => {
+            event.preventDefault();
+            const newUrl = `info_page.html?barcode=${searchBarcode.value}`;
+            searchBarcode.value = '';
+            window.location.href = newUrl;
+        });
+ 
         // Зупиняємо сканування при закритті сторінки (необхідно для звільнення камери)
         window.addEventListener('beforeunload', stopScanning);

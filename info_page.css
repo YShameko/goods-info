@@ -1,4 +1,4 @@
-.item-cpntainer {
+.item-container {
     margin: 0 auto;
     padding: 15px;
 }
@@ -39,3 +39,9 @@
     right: 10px; 
     border-radius: 0 4px 4px 0; 
 }
+
+/* @media screen and (min-width: 768px) {
+    #backButtonTop {
+        align-items: center;
+    }    
+} */

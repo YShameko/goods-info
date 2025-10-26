@@ -95,7 +95,7 @@ function renderCarousel() {
         img.src = url;
         img.alt = 'Фото товару';
         img.className = 'w-full h-auto object-cover rounded-lg';
-        img.onerror = () => { img.src = 'https://placehold.co/800x600/cccccc/000000?text=Помилка+завантаження+фото'; };
+        img.onerror = () => { img.src = 'https://placehold.co/800x600/cccccc/000000?text=Фото+відсутні'; };
         item.appendChild(img);
         carouselTrack.appendChild(item);
     });
